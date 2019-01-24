@@ -12,12 +12,13 @@ import com.vimeo.networking.callbacks.VimeoCallback
 import com.vimeo.networking.callers.GetRequestCaller
 import com.vimeo.networking.callers.MoshiGetRequestCaller
 import com.vimeo.networking.model.User
-import com.vimeo.networking.model.VideoList
+import com.vimeo.networking.model.Video
 import com.vimeo.networking.model.error.VimeoError
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.coroutines.*
 import okhttp3.CacheControl
+import retrofit2.Response
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import kotlin.system.measureTimeMillis
@@ -150,38 +151,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchStaffPicks() {
-        progressDialog.show()
-        apiClient.getContent(
-            STAFF_PICKS_VIDEO_URI,
-            CacheControl.FORCE_NETWORK,
-            GetRequestCaller.VIDEO_LIST,
-            null, null, null,
-            object : VimeoCallback<VideoList>() {
-                override fun success(videoList: VideoList?) {
-                    if (videoList?.data != null) {
-                        val videoTitles = StringBuilder()
-                        var addNewLine = false
-
-                        videoList.data.forEach { video ->
-                            if (addNewLine) videoTitles.append("\n")
-                            addNewLine = true
-                            videoTitles.append(video.name)
-                        }
-
-                        request_output_tv.text = videoTitles.toString()
-                    }
-                    toast("Staff Picks Success")
-                    progressDialog.hide()
-                }
-
-                override fun failure(error: VimeoError?) {
-                    toast("Staff Picks Failure")
-                    request_output_tv.text = error?.developerMessage
-                    progressDialog.hide()
-                }
-
-            }
-        )
+        uiScope.launch {
+            progressDialog.show()
+            // TODO: set back
+            val videoResponse: Response<Video>? = async(Dispatchers.IO) {
+                apiClient.getVideoSync(
+                    "/https://www.catfacts.co",//"/videos/12345",
+                    CacheControl.FORCE_NETWORK,
+                    null
+                )
+            }.await()
+            progressDialog.hide()
+        }
     }
 
     private fun fetchAccountType() {
