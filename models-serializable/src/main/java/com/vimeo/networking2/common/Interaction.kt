@@ -3,7 +3,7 @@
 package com.vimeo.networking2.common
 
 import com.vimeo.networking2.enums.ApiOptionsType
-import com.vimeo.networking2.enums.asEnumList
+import com.vimeo.networking2.extensions.asEnumList
 
 /**
  * Information on how to take action on an entity. Take an action on the

@@ -17,8 +17,6 @@ import com.vimeo.networking.VimeoClient;
 import com.vimeo.networking.callbacks.AuthCallback;
 import com.vimeo.networking.callbacks.VimeoCallback;
 import com.vimeo.networking.callers.GetRequestCaller;
-import com.vimeo.networking.callers.MoshiGetRequestCaller;
-import com.vimeo.networking.model.User;
 import com.vimeo.networking.model.Video;
 import com.vimeo.networking.model.VideoList;
 import com.vimeo.networking.model.error.VimeoError;
@@ -154,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private void fetchStaffPicksWithMoshi() {
         final long initialTime = System.currentTimeMillis();
         mProgressDialog.show();
-        mApiClient.getContent(STAFF_PICKS_VIDEO_URI, CacheControl.FORCE_NETWORK, MoshiGetRequestCaller.VIDEO_LIST, null, null, null, new VimeoCallback<com.vimeo.networking2.VideoList>() {
+      /*  mApiClient.getContent(STAFF_PICKS_VIDEO_URI, CacheControl.FORCE_NETWORK, MoshiGetRequestCaller.VIDEO_LIST, null, null, null, new VimeoCallback<com.vimeo.networking2.VideoList>() {
             @Override
             public void success(com.vimeo.networking2.VideoList videoList) {
                 final long finalTime = System.currentTimeMillis();
@@ -183,11 +181,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 mRequestOutputTv.setText(error.getDeveloperMessage());
                 mProgressDialog.hide();
             }
-        });
+        });*/
     }
 
     private void fetchAccountType() {
-        mProgressDialog.show();
+       /* mProgressDialog.show();
         mApiClient.getCurrentUser(new VimeoCallback<User>() {
             @Override
             public void success(User user) {
@@ -206,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 mRequestOutputTv.setText(error.getDeveloperMessage());
                 mProgressDialog.hide();
             }
-        });
+        });*/
     }
 
     private void logout() {
