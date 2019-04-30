@@ -1,6 +1,5 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
-apply from: '../publish.gradle'
 
 repositories {
     jcenter()
